@@ -222,7 +222,7 @@ const BrowseTuitionsContent = () => {
             </div>
           </div>
 
-          {/* Main Asymmetric Canvas: Stream Left + Live Lens Right */}
+          {/* Main Asymmetric Canvas: Stream Left + Live Lens Right (Desktop) */}
           {isLoading ? (
             <div className="mt-10 grid gap-12 lg:grid-cols-12">
               <div className="space-y-6 lg:col-span-7">
@@ -317,9 +317,9 @@ const BrowseTuitionsContent = () => {
                 })}
               </div>
 
-              {/* Right Active Batch Lens */}
+              {/* Right Active Batch Lens (Desktop only—no hover preview needed on mobile) */}
               {activeTuition && (
-                <div className="lg:sticky lg:top-24 lg:col-span-5">
+                <div className="hidden lg:sticky lg:top-24 lg:col-span-5 lg:block">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={activeTuition._id}
