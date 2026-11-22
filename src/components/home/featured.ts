@@ -20,12 +20,23 @@ export type FeaturedTuition = Tuition & { isNew: boolean };
 
 const NEW_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
 
+function isPrerenderAbort(error: unknown): boolean {
+  if (!error || typeof error !== "object") return false;
+  const err = error as { name?: string; digest?: string };
+  return (
+    err.name === "AbortError" ||
+    err.name === "TimeoutError" ||
+    err.digest === "HANGING_PROMISE_REJECTION"
+  );
+}
+
 export const getFeaturedTuitions = async (): Promise<FeaturedTuition[]> => {
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/api/tuitions/featured`,
       {
         cache: "no-store",
+        signal: AbortSignal.timeout(4000),
       },
     );
 
@@ -44,7 +55,9 @@ export const getFeaturedTuitions = async (): Promise<FeaturedTuition[]> => {
       isNew: now - new Date(tuition.createdAt).getTime() < NEW_WINDOW_MS,
     }));
   } catch (error) {
-    console.error("Featured tuitions request failed:", error);
+    if (!isPrerenderAbort(error)) {
+      console.error("Featured tuitions request failed:", error);
+    }
     return [];
   }
 };
