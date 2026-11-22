@@ -1,78 +1,56 @@
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
-import { TuitionCard } from "@/components/tuition/TuitionCard";
+import { Hero } from "@/components/home/Hero";
 import { HowItWorks } from "@/components/home/HowItWorks";
 import { StatsAndTestimonials } from "@/components/home/StatsAndTestimonials";
-import { Tuition } from "@/types";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
+import {
+  FeaturedTuitions,
+  FeaturedTuitionsSkeleton,
+} from "@/components/home/FeaturedIndex";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { Suspense } from "react";
+import { StayConnected } from "@/components/home/StayConnected";
 
-const getFeaturedTuitions = async (): Promise<Tuition[]> => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tuitions/featured`, {
-    cache: "no-store",
-  });
-  if (!res.ok) return [];
-  return res.json();
-};
-
-const FeaturedTuitions = async () => {
-  const tuitions = await getFeaturedTuitions();
-
+function SectionBridge({ label }: { label: string }) {
   return (
-    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {tuitions.map((tuition) => (
-        <TuitionCard key={tuition._id} tuition={tuition} />
-      ))}
+    <div
+      aria-hidden="true"
+      className="mx-auto flex w-full max-w-7xl items-center gap-4 px-5 py-3 sm:px-8 lg:px-10"
+    >
+      <span className="h-px flex-1 bg-gradient-to-r from-transparent via-[#C08BFF]/25 to-[#C08BFF]/40" />
+      <span className="inline-flex items-center gap-2 rounded-full border border-[#C08BFF]/20 bg-[#15131B]/80 px-3.5 py-1 font-sans text-[10px] font-medium uppercase tracking-[0.22em] text-[#A69BAF]">
+        <span className="size-1.5 rounded-full bg-[#C08BFF]" />
+        {label}
+      </span>
+      <span className="h-px flex-1 bg-gradient-to-l from-transparent via-[#C08BFF]/25 to-[#C08BFF]/40" />
     </div>
   );
-};
+}
 
 const HomePage = () => {
+  // throw new Error("Test error boundary");
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-[#101014] text-[#F5F1F8]">
       <Navbar />
-      <main className="flex-1">
-        {/* Hero Section */}
-        <section className="bg-muted/30 py-20">
-          <div className="mx-auto max-w-7xl px-4 text-center">
-            <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl">
-              Find Your Ideal Tutor <br className="hidden md:block" />
-              or Mentorship Batch Today
-            </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
-              Connect with verified tutors for personalized academic guidance. Search by subject, class level, and budget.
-            </p>
-            <div className="mt-8 flex justify-center gap-4">
-              <Link href="/tuitions" className={buttonVariants({ size: "lg" })}>
-                Browse Tuitions
-              </Link>
-              <Link href="/pricing" className={buttonVariants({ size: "lg", variant: "outline" })}>
-                View Pro Plans
-              </Link>
-            </div>
-          </div>
-        </section>
+      <main className="relative flex-1 bg-[#101014]">
+        <Hero />
 
-        {/* Featured Tuitions */}
-        <section className="mx-auto max-w-7xl px-4 py-16">
-          <div className="mb-8 flex items-center justify-between">
-            <h2 className="text-3xl font-bold">Featured Tuitions</h2>
-            <Link href="/tuitions" className="text-primary hover:underline">
-              View All
-            </Link>
-          </div>
-          <Suspense fallback={<div className="py-10 text-center text-muted-foreground">Loading tuitions...</div>}>
-            <FeaturedTuitions />
-          </Suspense>
-        </section>
+        <SectionBridge label="Verified Listings" />
 
-        {/* Extra Section 1 */}
+        <Suspense fallback={<FeaturedTuitionsSkeleton />}>
+          <FeaturedTuitions />
+        </Suspense>
+
+        <SectionBridge label="How It Works" />
+
         <HowItWorks />
 
-        {/* Extra Section 2 */}
+        <SectionBridge label="Subjects & Community" />
+
         <StatsAndTestimonials />
-        
+
+        <SectionBridge label="Start Your Journey" />
+
+        <StayConnected />
       </main>
       <Footer />
     </div>

@@ -5,7 +5,6 @@ export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   plugins: [
     adminClient(),
-    // Manually tell the client about the extra fields
     inferAdditionalFields({
       user: {
         role: { type: "string" },

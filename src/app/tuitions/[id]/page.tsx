@@ -12,7 +12,6 @@ const getTuition = async (id: string): Promise<Tuition | null> => {
   return res.json();
 };
 
-// 1. Move the await params inside this component
 const TuitionDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
   const resolvedParams = await params;
   const tuition = await getTuition(resolvedParams.id);
@@ -22,9 +21,7 @@ const TuitionDetails = async ({ params }: { params: Promise<{ id: string }> }) =
   return (
     <div className="mx-auto max-w-5xl px-4">
       <div className="grid gap-8 md:grid-cols-3">
-        {/* Left Column (Details) */}
         <div className="md:col-span-2 space-y-6">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={tuition.bannerImage}
             alt={tuition.title}
@@ -75,7 +72,6 @@ const TuitionDetails = async ({ params }: { params: Promise<{ id: string }> }) =
   );
 };
 
-// 2. Outer component is no longer async and does not await params
 const TuitionDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => {
   return (
     <div className="flex min-h-screen flex-col">
@@ -85,7 +81,6 @@ const TuitionDetailsPage = ({ params }: { params: Promise<{ id: string }> }) => 
       
       <main className="flex-1 py-10">
         <Suspense fallback={<div className="text-center py-20 text-muted-foreground">Loading details...</div>}>
-          {/* 3. Pass the params Promise directly to the wrapped component */}
           <TuitionDetails params={params} />
         </Suspense>
       </main>

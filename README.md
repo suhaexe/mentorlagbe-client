@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Here is the complete, professional `README.md` that fulfills all the assignment requirements. 
 
-## Getting Started
+You should put this file in the root of **BOTH** your client and server repositories (or at least definitely in the client repo).
 
-First, run the development server:
+### 📋 Copy everything below this line into your `README.md`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+***
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# MentorLagbe - Smart Tuition & Mentorship Platform
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📖 Project Purpose
+MentorLagbe is a full-stack EdTech platform designed to bridge the gap between qualified Tutors and eager Students. It provides a seamless ecosystem where tutors can post their tuition batches, students can search and apply for them, and admins can moderate the platform. 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🌐 Live URLs
+- **Frontend Live Site:** [PASTE YOUR VERCEL FRONTEND URL HERE]
+- **Backend API URL:** [PASTE YOUR VERCEL BACKEND URL HERE]
 
-## Learn More
+## 🔐 Test Credentials (For Evaluation)
+To test the different dashboards, please use the following accounts:
 
-To learn more about Next.js, take a look at the following resources:
+**Admin Account:**
+- **Email:** admin@mentorlagbe.com
+- **Password:** Admin@123456
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Tutor Account (Quick Testing):**
+- **Email:** tutor@mentorlagbe.com
+- **Password:** Tutor@123456
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Student Account (Quick Testing):**
+- **Email:** student@mentorlagbe.com
+- **Password:** Student@123456
 
-## Deploy on Vercel
+## ✨ Key Features
+- **Role-Based Authentication:** Secure login and registration using BetterAuth and JWT, with 3 distinct roles (Student, Tutor, Admin).
+- **Dynamic Dashboards:** 
+  - **Student:** Track applications, view stats, and cancel pending applications.
+  - **Tutor:** Post tuitions, manage applicants (accept/reject), toggle listing visibility, and full CRUD on tuition posts.
+  - **Admin:** Moderate tuition listings (approve/reject), manage user roles, and track Stripe revenue.
+- **Tuition Marketplace:** Advanced server-side search, filtering (by class, mode, subject), and pagination.
+- **Image Uploads:** Direct image uploading via the ImgBB API for banners and profile pictures.
+- **Stripe Payments:** Integrated Stripe Checkout for upgrading to Pro plans (Tutor Pro $15, Student Pro $10).
+- **Modern UI/UX:** Fully responsive, Awwwards-level design featuring a 3D scroll-journey Hero section, Dark/Light mode toggle, and Framer Motion animations.
+- **Security:** Protected Express API routes using custom JWT verification middlewares (`verifyToken`, `verifyStudent`, `verifyTutor`, `verifyAdmin`).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠️ Tech Stack & Packages Used
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Frontend:**
+- **Framework:** Next.js 16 (App Router), React 19, TypeScript
+- **Styling:** Tailwind CSS, shadcn/ui
+- **Animations:** Framer Motion
+- **Icons:** Lucide React
+- **Auth:** Better Auth Client
+- **Theme:** Next Themes
+- **Notifications:** Sonner (react-hot-toast alternative)
+
+**Backend:**
+- **Framework:** Node.js, Express.js
+- **Database:** MongoDB, Mongoose
+- **Auth:** Better Auth, JSON Web Tokens (JWT)
+- **Payments:** Stripe Node SDK
+- **Image Hosting:** ImgBB API
